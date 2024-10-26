@@ -1,6 +1,8 @@
 package main
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 type Track struct {
 	avatar *ebiten.Image
@@ -48,10 +50,10 @@ func (t *Track) drawGrass(screen *ebiten.Image, startX float64) {
 	grassH := float64(t.avatar.Bounds().Dy())
 
 	repeatY := float64(ScreenHeight) / grassH
-	repeatX := ScreenWidth / grassW
+	repeatX := t.leftBoundary / grassW
 
-	for y := 0; y < int(repeatY)+1; y++ {
-		for x := 0; x < int(repeatX)+1; x++ {
+	for y := 0; y <= int(repeatY); y++ {
+		for x := 0; x <= int(repeatX); x++ {
 			op := &ebiten.DrawImageOptions{}
 			op.GeoM.Translate(startX+float64(x)*grassW, float64(y)*grassH)
 			screen.DrawImage(t.avatar, op)

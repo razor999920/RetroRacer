@@ -1,6 +1,8 @@
 package main
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 type Player struct {
 	position Vector
@@ -27,19 +29,30 @@ func NewPlayer() *Player {
 
 func (p *Player) Update() error {
 	speed := float64(300 / ebiten.TPS())
+	verticalPosition := p.position.Y
+	horitontalPosition := p.position.X
 
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		p.position.Y += speed
+		verticalPosition += speed
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		p.position.Y -= speed
+		verticalPosition -= speed
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		p.position.X -= speed
+		horitontalPosition -= speed
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		p.position.X += speed
+		horitontalPosition += speed
 	}
+
+	// Make sure the player is not going out of the frame
+	if verticalPosition <= 0 || verticalPosition+float64(p.avatar.Bounds().Dy()) >= ScreenHeight || horitontalPosition <= 0 || horitontalPosition+float64(p.avatar.Bounds().Dx()) >= ScreenWidth {
+		return nil
+	}
+
+	// Update the car's position
+	p.position.X = horitontalPosition
+	p.position.Y = verticalPosition
 
 	return nil
 }
