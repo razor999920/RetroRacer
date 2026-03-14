@@ -1,6 +1,6 @@
-# Terminal Racer
+# Retro Racer
 
-A multiplayer terminal racing game where up to 5 players can join a lobby and race each other.
+A multiplayer racing game where up to 5 players can join a lobby and race each other.
 
 ## Requirements
 
@@ -24,7 +24,7 @@ go run .
 ## Project Structure
 
 ```
-TerminalRacer/
+RetroRacer/
 ├── main.go         # Game loop and entry point
 ├── player.go       # Player model and movement
 ├── track.go        # Track rendering and boundaries

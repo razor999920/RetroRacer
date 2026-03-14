@@ -1,4 +1,4 @@
-module terminalRacer
+module retroracer
 
 go 1.23.1
 

@@ -5,7 +5,7 @@ import (
 	_ "image/png"
 	"log"
 
-	"terminalRacer/assets"
+	"retroracer/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
