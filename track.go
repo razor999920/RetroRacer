@@ -1,8 +1,12 @@
 package main
 
 import (
+	"math"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
+
+const ForwardSpeed = 200.0 // pixels per second
 
 type Track struct {
 	avatar *ebiten.Image
@@ -11,6 +15,7 @@ type Track struct {
 	rightBoundary float64
 
 	avatarWidth float64
+	scrollY     float64
 }
 
 func NewTrack() *Track {
@@ -34,6 +39,7 @@ func NewTrack() *Track {
 }
 
 func (t *Track) Update() error {
+	t.scrollY += ForwardSpeed / float64(ebiten.TPS())
 	return nil
 }
 
@@ -49,13 +55,14 @@ func (t *Track) drawGrass(screen *ebiten.Image, startX float64) {
 	grassW := float64(t.avatar.Bounds().Dx())
 	grassH := float64(t.avatar.Bounds().Dy())
 
-	repeatY := float64(ScreenHeight) / grassH
+	offsetY := math.Mod(t.scrollY, grassH)
+	repeatY := float64(ScreenHeight)/grassH + 1
 	repeatX := t.leftBoundary / grassW
 
-	for y := 0; y <= int(repeatY); y++ {
+	for y := -1; y <= int(repeatY); y++ {
 		for x := 0; x <= int(repeatX); x++ {
 			op := &ebiten.DrawImageOptions{}
-			op.GeoM.Translate(startX+float64(x)*grassW, float64(y)*grassH)
+			op.GeoM.Translate(startX+float64(x)*grassW, float64(y)*grassH+offsetY)
 			screen.DrawImage(t.avatar, op)
 		}
 	}

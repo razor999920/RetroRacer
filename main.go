@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	_ "image/png"
 	"log"
 
 	"terminalRacer/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 const (
@@ -60,6 +62,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	g.track.Draw(screen)
 	// Player
 	g.player.Draw(screen)
+	// FPS
+	ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %.1f", ebiten.ActualFPS()))
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
