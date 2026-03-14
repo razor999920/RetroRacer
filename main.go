@@ -3,7 +3,8 @@ package main
 import (
 	_ "image/png"
 	"log"
-	assets "terminalRacer"
+
+	"terminalRacer/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -13,8 +14,10 @@ const (
 	ScreenHeight = 600
 )
 
-var PlayerAvatar *ebiten.Image
-var GrassAvatar *ebiten.Image
+var (
+	PlayerAvatar *ebiten.Image
+	GrassAvatar  *ebiten.Image
+)
 
 func init() {
 	var err error
@@ -45,7 +48,6 @@ func (g *Game) Update() error {
 	err := g.track.Update()
 	// Player
 	err = g.player.Update()
-
 	if err != nil {
 		return err
 	}
